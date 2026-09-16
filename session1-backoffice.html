@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>第1回：Claude Code の基本 — Claude Code ハンズオン</title>
+<title>第1回：Claude Code の基本（バックオフィス向け） — Claude Code ハンズオン</title>
 <style>
   :root {
     --accent: #d97757;
@@ -187,7 +187,7 @@
       <li><a href="#sec2">2. Claude Code とは？</a></li>
       <li><a href="#sec3">3. 基本的な使い方</a></li>
       <li><a href="#sec4">4. Claude Code の設定ファイル</a></li>
-      <li><a href="#sec5">5. コマンド</a></li>
+      <li><a href="#sec5">5. 操作の体系</a></li>
       <li><a href="#sec6">6. 実践：Web 記事をプレゼン資料にする</a></li>
       <li><a href="#sec7">7. まとめ</a></li>
       <li><a href="#sec8">8. 質疑応答</a></li>
@@ -196,12 +196,12 @@
 
   <main>
     <header class="hero">
-      <h1>第1回：Claude Code の基本</h1>
-      <p>「目標：Claude Code の基本操作・コマンド体系を理解し、日常業務で利用できるようになる」</p>
+      <h1>第1回：Claude Code の基本（バックオフィス向け）</h1>
+      <p>「目標：Claude Code の基本操作を理解し、日常業務で利用できるようになる」</p>
       <div class="badges">
         <span class="badge">90分</span>
+        <span class="badge">デスクトップアプリ</span>
         <span class="badge">基本操作</span>
-        <span class="badge">スラッシュコマンド</span>
         <span class="badge">承認モード</span>
         <span class="badge">プレゼン資料作成</span>
       </div>
@@ -211,19 +211,19 @@
       <h2 class="step"><span class="step-num">1</span>到達目標・時間配分</h2>
       <h3>到達目標</h3>
       <ul>
-        <li>Claude Code の基本設定を理解する</li>
-        <li>主要なスラッシュコマンド・特殊プレフィックス・キーボードショートカットを使える</li>
+        <li>Claude Desktop で Claude Code を起動し、作業フォルダを開いて使い始められる</li>
+        <li>画面の操作（モデル・承認モード・使用量）と特殊プレフィックス（<code class="inline">@</code> <code class="inline">!</code>）を使える</li>
         <li>Web 記事の調査 → 日本語の資料化 → デザイン調整 → PDF 化までの一連を Claude Code に任せられる</li>
       </ul>
       <h3>時間配分（90分）</h3>
       <table>
         <tr><th>#</th><th>内容（約1.5時間・手を動かしながら進めます）</th><th>時間</th></tr>
-        <tr><td>1</td><td>オープニング</td><td>4分</td></tr>
+        <tr><td>1</td><td>オープニング</td><td>2分</td></tr>
         <tr><td>2</td><td>Claude Code とは？</td><td>12分</td></tr>
         <tr><td>3</td><td>基本的な使い方</td><td>18分</td></tr>
-        <tr><td>4</td><td>Claude Code の設定ファイル</td><td>6分</td></tr>
-        <tr><td>5</td><td>コマンド</td><td>10分</td></tr>
-        <tr><td>6</td><td>実践：Web 記事をプレゼン資料にする</td><td>21分</td></tr>
+        <tr><td>4</td><td>Claude Code の設定ファイル</td><td>4分</td></tr>
+        <tr><td>5</td><td>操作の体系</td><td>10分</td></tr>
+        <tr><td>6</td><td>実践：Web 記事をプレゼン資料にする</td><td>25分</td></tr>
         <tr><td>7</td><td>まとめ</td><td>4分</td></tr>
         <tr><td>8</td><td>質疑応答</td><td>15分</td></tr>
       </table>
@@ -236,12 +236,12 @@
       <ul>
         <li>Anthropic が提供する <strong>エージェント型コーディングツール</strong></li>
         <li>CLI（ターミナル）/ VS Code / JetBrains / Claude Desktop / Web (<code class="inline">claude.ai/code</code>) の <strong>5つの入口</strong> がある</li>
-        <li>本コースでは <strong>CLI（ターミナル）</strong> を中心に扱う</li>
+        <li>本コースでは <strong>Claude Desktop（デスクトップアプリ）</strong> を中心に扱う</li>
       </ul>
 
-      <h3>2-2. Claude.ai との違い（2分）</h3>
+      <h3>2-2. チャットとの違い（2分）</h3>
       <table>
-        <tr><th>観点</th><th>Claude.ai（チャット）</th><th>Claude Code（AIエージェント）</th></tr>
+        <tr><th>観点</th><th>Claude チャット</th><th>Claude Code（AIエージェント）</th></tr>
         <tr><td>ファイルアクセス</td><td>コピペで渡した範囲のみ</td><td>ローカルファイルに直接アクセス</td></tr>
         <tr><td>実行</td><td>テキスト返答のみ</td><td>ファイル編集・コマンド実行を自分で行う</td></tr>
         <tr><td>ループ</td><td>人間が結果を貼り戻す</td><td>自分でエラーを読み、自分で直す</td></tr>
@@ -250,7 +250,7 @@
 
       <h3>2-3. AIエージェントの動き（4分）</h3>
       <figure class="shot">
-        <img src="Image/agentic-loop.svg" alt="エージェントループの図解">
+        <img src="Image/session1-backoffice/agentic-loop.svg" alt="エージェントループの図解">
         <figcaption>エージェントループ — ②評価と③ツール実行を、答えが出るまで繰り返す</figcaption>
       </figure>
       <ol>
@@ -273,7 +273,7 @@
         <li>セッションが変わるとコンテキストはまっさらになる — <strong>1タスク1セッション</strong> が使い方の基本</li>
       </ul>
       <figure class="shot">
-        <img src="Image/session-diagram.svg" alt="セッションの図解 — 終了後は再開（--continue / -r）か新規開始かを選べる">
+        <img src="Image/session1-backoffice/session-diagram.svg" alt="セッションの図解 — 終了後は再開か新規開始かを選べる">
         <figcaption>セッション — 起動から終了までが1つの対話単位。終了後は「続きを再開」か「まっさらな新規セッション」を選べる</figcaption>
       </figure>
       <h4>モデル</h4>
@@ -281,8 +281,8 @@
       <table>
         <tr><th>モデル</th><th>特徴</th></tr>
         <tr><td>Fable</td><td>最上位。最も難しい推論・長時間の自律的なエージェント作業向け</td></tr>
-        <tr><td>Opus</td><td>高性能。複雑な設計判断・大規模なリファクタリング向け</td></tr>
-        <tr><td>Sonnet</td><td>性能と速度のバランス型。日常的な開発タスクの主力</td></tr>
+        <tr><td>Opus</td><td>高性能。込み入った判断や、大量のファイルをまとめて扱う作業向け</td></tr>
+        <tr><td>Sonnet</td><td>性能と速度のバランス型。日常的な作業の主力</td></tr>
         <tr><td>Haiku</td><td>最速・低コスト。簡単な質問や定型作業向け</td></tr>
       </table>
       <h4>コンテキスト</h4>
@@ -323,7 +323,7 @@
         <li>確認の度合いは承認モード（3-4）で切り替えられ、settings.json の <code class="inline">permissions</code>（4-2）で事前にルール化もできる</li>
       </ul>
       <figure class="shot">
-        <img src="Image/permission-diagram.svg" alt="パーミッションの図解 — ツール実行前の承認フロー">
+        <img src="Image/session1-backoffice/permission-diagram.svg" alt="パーミッションの図解 — ツール実行前の承認フロー">
         <figcaption>パーミッション — ツール実行の前に承認を求め、承認された場合だけ実行される</figcaption>
       </figure>
     </section>
@@ -331,7 +331,7 @@
     <section id="sec3">
       <h2 class="step"><span class="step-num">3</span>基本的な使い方（18分）</h2>
 
-      <h3>3-1. インストール（5分）</h3>
+      <h3>3-1. インストール（2分）</h3>
       <p>公式サイトからインストーラをダウンロードしてインストールする。コマンド操作は不要。</p>
       <ul>
         <li><a href="https://claude.com/ja/download" target="_blank" rel="noopener">claude.com/ja/download</a> を開く</li>
@@ -386,7 +386,7 @@
       <h4>開始</h4>
       <p>サイドバー上部の <code class="inline">+ 新規</code> で新しいセッションを始める。コンテキストがまっさらな状態からのスタートになる。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/new-session.png" alt="サイドバー上部の「+ 新規」" style="max-width: 280px">
+        <img src="Image/session1-backoffice/new-session-code.png" alt="サイドバー上部の「+ 新規」" style="max-width: 280px">
       </figure>
 
       <h4>再開</h4>
@@ -399,7 +399,7 @@
         <strong>💡 1タスク1セッション</strong>
         別の作業に移るときは、再開せず <strong>新規セッションを立てる</strong>。前のタスクの文脈が混ざらず、コンテキストの無駄遣いも防げる（2-4）。
       </div>
-      <h3>3-3. 画面の見方と設定（8分）</h3>
+      <h3>3-3. 画面の見方と設定（11分）</h3>
       <p>アプリでは、状態の確認も設定の変更もほとんど画面上の操作で行える。よく使うものを順に見ていく。</p>
 
       <h4>設定画面</h4>
@@ -453,7 +453,7 @@
       </div>
 
       <h3>3-4. 承認モード（3分）</h3>
-      <p>入力欄の左下に現在のモードが表示されている。クリックすると一覧から切り替えられる（数字キーでも選べる）。</p>
+      <p>入力欄の左下に現在のモードが表示されている。クリックすると一覧から切り替えられる。</p>
       <figure class="shot">
         <img src="Image/session1-backoffice/mode-menu.png" alt="承認モードの選択メニュー" style="max-width: 420px">
       </figure>
@@ -488,11 +488,11 @@
     </section>
 
     <section id="sec4">
-      <h2 class="step"><span class="step-num">4</span>Claude Code の設定ファイル（6分）</h2>
+      <h2 class="step"><span class="step-num">4</span>Claude Code の設定ファイル（4分）</h2>
       <p>Claude Code の挙動は、階層化された設定ファイルで制御される。「どこに置くか」でスコープが変わるのがポイント。</p>
 
       <h3>4-1. CLAUDE.md — プロジェクトメモリ（3分）</h3>
-      <p>セッション開始時に <strong>自動で読み込まれる</strong>「Claude への指示書」。<code class="inline">#</code> プレフィックス（5-2）で追記できる。</p>
+      <p>セッション開始時に <strong>自動で読み込まれる</strong>「Claude への指示書」。毎回同じことを指示せずに済むよう、守ってほしいルールをここに書いておく。追記したいときは「CLAUDE.md に〜を追記して」と頼めばよい。</p>
       <table>
         <tr><th>配置場所</th><th>スコープ</th></tr>
         <tr><td><code class="inline">~/.claude/CLAUDE.md</code></td><td>全フォルダ共通（個人の指示）</td></tr>
@@ -509,153 +509,118 @@
         <p>3-1 で開いた作業フォルダで <code class="inline">/init</code> を実行し、生成された <code class="inline">CLAUDE.md</code> にどんな内容が書かれたか眺めてみましょう。</p>
       </div>
 
-      <h3>4-2. settings.json（3分）</h3>
-      <p>パーミッション許可リスト・Hooks・環境変数など、<strong>ハーネスの動作設定</strong> を JSON で定義する。</p>
+      <h3>4-2. settings.json（1分）</h3>
+      <p>設定ファイルは CLAUDE.md だけではない。<code class="inline">settings.json</code> は、承認の許可リストや Hooks など <strong>ハーネスの動作設定</strong> を JSON で定義するファイル。CLAUDE.md が「Claude への指示」なのに対し、こちらは「仕組みの設定」を受け持つ。</p>
       <table>
         <tr><th>配置場所</th><th>スコープ</th></tr>
-        <tr><td><code class="inline">~/.claude/settings.json</code></td><td>ユーザ共通（全プロジェクトに適用）</td></tr>
-        <tr><td><code class="inline">&lt;repo&gt;/.claude/settings.json</code></td><td>プロジェクト共通（<strong>チームで共有</strong>・コミット対象）</td></tr>
-        <tr><td><code class="inline">&lt;repo&gt;/.claude/settings.local.json</code></td><td>プロジェクト個人用（git 管理外）</td></tr>
-      </table>
-      <h4>settings.json と CLAUDE.md の使い分け</h4>
-      <table>
-        <tr><th>観点</th><th>settings.json</th><th>CLAUDE.md</th></tr>
-        <tr><td>形式</td><td>JSON</td><td>Markdown（自然言語）</td></tr>
-        <tr><td>役割</td><td>ハーネスの動作設定（許可・Hooks・環境変数）</td><td>Claude への指示・プロジェクト知識</td></tr>
+        <tr><td><code class="inline">~/.claude/settings.json</code></td><td>全フォルダ共通（個人の設定）</td></tr>
+        <tr><td><code class="inline">&lt;作業フォルダ&gt;/.claude/settings.json</code></td><td>そのフォルダ共通（<strong>チームで共有</strong>）</td></tr>
+        <tr><td><code class="inline">&lt;作業フォルダ&gt;/.claude/settings.local.json</code></td><td>そのフォルダの個人用（共有しない）</td></tr>
       </table>
       <div class="callout tip">
         <strong>💡 詳しくは第2回で</strong>
-        書き方のコツや Hooks の実例など、詳しい運用は <a href="session2.html">第2回</a> で扱う。
+        書き方のコツや Hooks の実例など、詳しい運用は <a href="session2.html">第2回</a> で扱う。ここでは「そういうファイルがある」ことだけ押さえておけばよい。
       </div>
-      <h4>参考リンク</h4>
-      <ul>
-        <li><a href="https://code.claude.com/docs/ja/settings#%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB" target="_blank" rel="noopener">Claude Code ドキュメント — 設定ファイル</a></li>
-      </ul>
     </section>
 
 
     <section id="sec5">
-      <h2 class="step"><span class="step-num">5</span>コマンド（10分）</h2>
+      <h2 class="step"><span class="step-num">5</span>操作の体系（10分）</h2>
 
-      <h3>5-1. 体系 — 3 種類（4分）</h3>
+      <h3>5-1. 3種類の操作（2分）</h3>
       <table>
         <tr><th>種類</th><th>入り方</th><th>例</th></tr>
-        <tr><td>スラッシュコマンド</td><td>REPL 内で <code class="inline">/</code> を入力</td><td><code class="inline">/init</code>, <code class="inline">/context</code>, <code class="inline">/mcp</code></td></tr>
-        <tr><td>特殊プレフィックス</td><td>プロンプト先頭で <code class="inline">@</code>, <code class="inline">!</code>, <code class="inline">#</code></td><td><code class="inline">@README.md</code>, <code class="inline">!ls</code>, <code class="inline"># メモ</code></td></tr>
-        <tr><td>キーボードショートカット</td><td>キー操作</td><td><code class="inline">Shift+Tab</code>, <code class="inline">Esc</code>, <code class="inline">Ctrl+R</code></td></tr>
+        <tr><td>スラッシュコマンド</td><td>入力欄で <code class="inline">/</code> を入力</td><td><code class="inline">/init</code>, <code class="inline">/usage</code></td></tr>
+        <tr><td>特殊プレフィックス</td><td>プロンプト先頭で <code class="inline">@</code>, <code class="inline">!</code></td><td><code class="inline">@議事録.md</code>, <code class="inline">!ls</code></td></tr>
+        <tr><td>画面の操作</td><td>クリック</td><td>承認モードの切り替え（3-4）、メッセージの操作（5-3）</td></tr>
       </table>
 
       <h3>5-2. 特殊プレフィックス（3分）</h3>
-      <h4><code class="inline">!</code> — Bash 実行モード</h4>
-<pre>!pwd</pre>
-      <ul>
-        <li>プロンプトとして送らず <strong>シェルだけ実行</strong>。手元の状態を Claude に渡したいときに便利。</li>
-      </ul>
-      <h4><code class="inline">#</code> — メモリ追記</h4>
-<pre># 資料の見出しは「です・ます」調で統一する</pre>
-      <ul>
-        <li>セッション内メモリに追記される。<code class="inline">/memory</code> で管理。</li>
-      </ul>
-      <h4><code class="inline">@</code> — ファイル / ディレクトリ参照</h4>
+      <h4><code class="inline">@</code> — ファイル / 過去のセッションを参照</h4>
+      <p>入力欄で <code class="inline">@</code> を打つと、作業フォルダ内のファイルと、これまでのセッションの一覧が表示される。選ぶと、それを参照した状態で指示できる。</p>
+      <figure class="shot">
+        <img src="Image/session1-backoffice/at-mention.png" alt="@ を入力したときの候補一覧" style="max-width: 560px">
+      </figure>
 <pre>@議事録.md この会議の決定事項を3行でまとめて</pre>
       <ul>
-        <li>該当ファイルを <strong>明示的に読ませる</strong>。曖昧さが減ってコンテキストも節約。</li>
+        <li>対象を <strong>明示的に読ませる</strong>。曖昧さが減ってコンテキストも節約できる</li>
+        <li>過去のセッションも選べるので、「前回まとめた内容を踏まえて」といった渡し方ができる</li>
       </ul>
 
-      <h3>5-3. キーボードショートカット（3分）</h3>
+      <h4><code class="inline">!</code> — コマンド実行</h4>
+      <p>入力欄の先頭で <code class="inline">!</code> を打つと <strong>bash モード</strong> に切り替わる。入力した内容はプロンプトではなく <strong>コマンドとして実行</strong> され、その出力が Claude に渡される。</p>
+      <figure class="shot">
+        <img src="Image/session1-backoffice/bash-mode.png" alt="bash モードに切り替わった入力欄" style="max-width: 620px">
+      </figure>
+<pre>!ls</pre>
+      <ul>
+        <li>上の例は <strong>作業フォルダの中身を一覧表示</strong> する。Claude が作ったファイルができているか、その場で確認できる</li>
+        <li>環境によっては、フォルダをそのまま開くこともできる（macOS は <code class="inline">!open ./</code>、Windows は <code class="inline">!start .</code>）</li>
+      </ul>
+
+      <h3>5-3. メッセージの操作（5分）</h3>
+      <p>各メッセージの下にはアイコンが並んでいる。送信からの経過時間のほか、次の操作ができる。</p>
+      <figure class="shot">
+        <img src="Image/session1-backoffice/message-actions.png" alt="メッセージ下部の操作アイコン" style="max-width: 260px">
+      </figure>
       <table>
-        <tr><th>キー</th><th>動作</th></tr>
-        <tr><td><code class="inline">Ctrl + C</code></td><td>入力クリア / 2回でセッション中断</td></tr>
-        <tr><td><code class="inline">Esc</code></td><td>入力クリア・ループ中なら割り込み</td></tr>
-        <tr><td><code class="inline">Ctrl + R</code></td><td>履歴検索</td></tr>
-        <tr><td><code class="inline">Up / Down</code></td><td>履歴ナビゲーション</td></tr>
+        <tr><th>アイコン</th><th>できること</th></tr>
+        <tr><td>コピー</td><td>そのメッセージの内容をコピーする</td></tr>
+        <tr><td>ここまで巻き戻す</td><td>その時点まで会話を戻し、別の指示でやり直す</td></tr>
+        <tr><td>ここからフォーク</td><td>その時点から会話を枝分かれさせ、元のやりとりを残したまま別案を試す</td></tr>
       </table>
 
     </section>
 
     <section id="sec6">
-      <h2 class="step"><span class="step-num">6</span>実践：Web 記事をプレゼン資料にする（21分）</h2>
+      <h2 class="step"><span class="step-num">6</span>実践：Web 記事をプレゼン資料にする（25分）</h2>
       <p>ここまでの内容を使って、実際に成果物を1本作ってみる。題材は「Web の記事を調べる → 日本語でまとめる → 資料にする → 配布用の PDF にする」という、ソフトウェア開発以外の業務でもそのまま使える流れ。<strong>コードは1行も書かない</strong>。</p>
       <p>題材の記事（英語。自分で検索して見つけた別の記事でもよい）:<br>
       <a href="https://claude.com/blog/getting-started-with-loops" target="_blank" rel="noopener">claude.com/blog/getting-started-with-loops</a></p>
-      <div class="callout tip">
-        <strong>💡 承認モードは「手動」で</strong>
-        この章は <strong>「手動」モード</strong>（3-4）に切り替えて進める。承認ダイアログが何度か出てくるが、それ自体が体験の一部。
-      </div>
-
       <h3>6-1. 準備 — 作業フォルダを用意して起動（3分）</h3>
       <ol>
         <li>デスクトップなどに <code class="inline">article-report</code> という <strong>空のフォルダ</strong> を作る（Finder / エクスプローラでよい）</li>
         <li>Claude Code を起動し、そのフォルダを作業フォルダとして開く</li>
         <li>初めて開くフォルダなので <strong>「このフォルダを信頼するか」</strong> の確認が出る → 自分で作ったフォルダなので信頼して進む（3-1 参照）</li>
+        <li>入力欄左下のモード表示から <strong>「手動」</strong> に切り替える（3-4）。承認ダイアログが何度か出てくるが、それ自体が体験の一部</li>
       </ol>
-      <div class="callout tip">
-        <strong>💡 ターミナルから起動する場合</strong>
-<pre style="margin:8px 0 0;"><span class="prompt">$</span> mkdir article-report &amp;&amp; cd article-report
-<span class="prompt">$</span> claude</pre>
-      </div>
-
-      <h3>6-2. Web 記事を日本語の資料にする（7分）</h3>
+      <h3>6-2. Web 記事を日本語の資料にする（8分）</h3>
       <p>記事の URL を渡して、日本語の資料化を依頼する。</p>
       <div class="prompt-box">
         <span class="label">あなたの指示</span>
         <p>https://claude.com/blog/getting-started-with-loops の記事を読んで、内容を日本語でわかりやすくまとめた html形式でのプレゼン資料を loops-guide.html という1ファイルで作成してください。開発者でない人にも伝わる表現にしてください。</p>
       </div>
       <p>Web へのアクセスの前に、以下のような <strong>承認ダイアログ</strong> が表示される。</p>
-<pre><span class="prompt">Fetch</span>
-
-  https://claude.com/blog/getting-started-with-loops
-  <span class="comment">Read the article to summarize it in Japanese</span>
-
-Do you want to proceed?
-<span class="prompt">❯ 1.</span> Yes
-  <span class="prompt">2.</span> Yes, and don't ask again for claude.com
-  <span class="prompt">3.</span> No</pre>
+      <figure class="shot">
+        <img src="Image/session1-backoffice/permission-dialog.png" alt="Web アクセスの承認ダイアログ">
+      </figure>
       <ul>
-        <li><strong>何に・何のために</strong> アクセスするかが表示される — 内容を確認してから <code class="inline">1. Yes</code> で許可する</li>
-        <li><code class="inline">2. Yes, and don't ask again for ...</code> を選ぶと、以後そのドメインへのアクセスは確認なしになる（許可リストに追加される）</li>
-        <li>心当たりのない宛先なら <code class="inline">3. No</code> で拒否できる — これが第2章で学んだ <strong>承認モデル（ハーネス）</strong> の実物</li>
+        <li><strong>何に・何のために</strong> アクセスするかが表示される — 内容を確認してから <code class="inline">一度だけ許可</code> で進む</li>
+        <li><code class="inline">常に許可</code> を選ぶと、以後そのアクセスは確認なしになる（許可リストに追加される）</li>
+        <li>心当たりのない宛先なら <code class="inline">拒否</code> で断れる — これが 2章 で学んだ <strong>承認モデル（ハーネス）</strong> の実物</li>
         <li>ファイルを新規作成するときにも、同じように承認を求められる</li>
       </ul>
+      <div class="callout tip">
+        <strong>💡 ふだんは「自動」のままでよい</strong>
+        既定の「自動」モードでは、この種の確認は省かれて Claude が判断する（3-4）。ここで手動にしたのは、承認の中身を一度自分の目で見ておくため。慣れたら自動に戻してよい。
+      </div>
       <p>完成したらブラウザで開いて確認する。作業フォルダの <code class="inline">loops-guide.html</code> をダブルクリックすればよい。</p>
       <ul>
         <li>記事が英語でも、<strong>日本語でと指示すれば日本語の資料</strong> になる</li>
-        <li><strong>依頼 → 調査 → 作成 → 確認</strong> — 第2章で学んだエージェントループの一周を体験できた</li>
+        <li><strong>依頼 → 調査 → 作成 → 確認</strong> — 2章 で学んだエージェントループの一周を体験できた</li>
       </ul>
-      <div class="callout tip">
-        <strong>💡 TIPS：スピナー（作業中の表示）</strong>
-        プロンプトを送ると、Claude が作業している間は以下のような <strong>スピナー</strong> が表示される。
-<pre style="margin:8px 0 0;">✻ Pondering… <span class="comment">(12s · ↓ 1.2k tokens · esc to interrupt)</span></pre>
-        <ul style="margin:8px 0 0;padding-left:20px;">
-          <li>先頭の単語（Pondering, Brewing, Vibing…）は <strong>ランダムな遊び言葉</strong> で、処理内容とは関係ない</li>
-          <li><strong>経過時間</strong> と <strong>消費トークン数</strong> が確認できる</li>
-          <li><code class="inline">esc to interrupt</code> — <strong><code class="inline">Esc</code> でいつでも割り込んで</strong> 指示し直せる（第2章「ループの途中で割り込み」の実物）</li>
-        </ul>
-      </div>
-      <div class="callout tip">
-        <strong>💡 確認の質問が来たら</strong>
-        指示が曖昧なとき（何ページ構成にするか、どこまで詳しく書くか等）は Claude が確認の質問をしてくることがある。勝手に進めないのが「手動」モードの正常な動き。
-      </div>
-      <div class="callout tip">
-        <strong>💡 TIPS：こんな質問が来たら？</strong>
-        セッション中、以下のような質問が表示されることがある。Claude の働きぶりについての <strong>任意回答</strong> のフィードバックで、迷ったら <strong><code class="inline">2: Fine</code> で OK</strong>（<code class="inline">0: Dismiss</code> で閉じてもよい）。
-<pre style="margin:8px 0 0;">● How is Claude doing this session? <span class="comment">(optional)</span>
-  <span class="prompt">1</span>: Bad    <span class="prompt">2</span>: Fine    <span class="prompt">3</span>: Good    <span class="prompt">0</span>: Dismiss</pre>
-      </div>
-
-      <h3>6-3. デザインテンプレートを与えて見た目を更新する（6分）</h3>
-      <p>好みのデザイン（社内のスライドテンプレート・気に入っている Web サイトなど）のスクリーンショットを撮り、作業フォルダに <code class="inline">design-template.png</code> として保存する。</p>
-      <p>画像を渡してデザインの更新を依頼する:</p>
+      <h3>6-3. デザインテンプレートを与えて見た目を更新する（8分）</h3>
+      <p>好みのデザイン（社内のスライドテンプレート・気に入っている Web サイトなど）のスクリーンショットを撮る。撮った画像は <strong>入力欄に貼り付ける（コピー＆ペースト）</strong> だけで渡せる。パソコンに保存した画像なら、<strong>ドラッグ＆ドロップ</strong> でも渡せる。</p>
+      <p>画像を添えて、デザインの更新を依頼する:</p>
       <div class="prompt-box">
         <span class="label">あなたの指示</span>
-        <p>design-template.png のデザイン（配色・フォント・レイアウトの雰囲気）に合わせて、loops-guide.html の見た目を更新してください。文章の内容は変えないでください。</p>
+        <p>渡した画像のデザイン（配色・フォント・レイアウトの雰囲気）に合わせて、loops-guide.html の見た目を更新してください。文章の内容は変えないでください。</p>
       </div>
       <ul>
-        <li>画像は入力欄への <strong>ドラッグ＆ドロップ</strong> でパスを渡すこともできる</li>
         <li>仕上がりが気に入らなければ「余白をもう少し広く」「見出しの色を控えめに」のように <strong>会話で微調整</strong> する</li>
       </ul>
 
-      <h3>6-4. PDF 化して配布できるようにする（5分）</h3>
+      <h3>6-4. PDF 化して配布できるようにする（6分）</h3>
       <p>資料を配布・印刷しやすいよう、仕上げに PDF へ変換する:</p>
       <div class="prompt-box">
         <span class="label">あなたの指示</span>
@@ -689,22 +654,22 @@ Do you want to proceed?
         <tr><td>2</td><td>Claude Code は <strong>エージェント型</strong> — コンテキスト収集 → ツール実行 → 検証のループを自走する。基本用語（モデル / コンテキスト / トークン / ハーネス / セッション）</td></tr>
         <tr><td>3</td><td>インストールと作業フォルダを開く手順、サイドバーからのセッションの開始・再開、画面の見方と設定（使用量・モデル・エフォート）、5つの承認モード</td></tr>
         <tr><td>4</td><td>設定ファイルの階層 — CLAUDE.md（Claude への指示・<code class="inline">/init</code> で生成）と settings.json（ハーネスの動作設定）</td></tr>
-        <tr><td>5</td><td>コマンド体系と特殊プレフィックス — <code class="inline">@</code>（ファイル参照）・<code class="inline">!</code>（シェル実行）・<code class="inline">#</code>（メモリ追記）</td></tr>
+        <tr><td>5</td><td>3種類の操作と特殊プレフィックス — <code class="inline">@</code>（ファイル・過去セッションの参照）・<code class="inline">!</code>（コマンド実行）、メッセージの巻き戻しとフォーク</td></tr>
         <tr><td>6</td><td>資料作成の型 — 調査 → 日本語の資料化 → デザイン調整 → PDF 化。コードを1行も書かずに成果物ができる</td></tr>
       </table>
       <div class="callout ok">
         <strong>✅ 明日からの最初の一歩</strong>
-        手元の業務フォルダで Claude Code を起動 → 「このフォルダにある資料の内容を一覧にまとめて」。<strong>読むだけ・まとめるだけのタスクから任せ始める</strong> のが、リスクなく Claude Code に慣れる近道。
+        手元の業務フォルダを Claude Code で開いて → 「このフォルダにある資料の内容を一覧にまとめて」。<strong>読むだけ・まとめるだけのタスクから任せ始める</strong> のが、リスクなく Claude Code に慣れる近道。
       </div>
     </section>
 
     <section id="sec8">
       <h2 class="step"><span class="step-num">💬</span>質疑応答（15分）</h2>
-      <p>ここまでの内容についての質問・疑問に答える。日常業務での適用イメージ（どのタスクから Claude Code に任せるか）もここで相談する。</p>
+      <p>ここまでの内容についての質問・疑問に答える。日常業務での適用イメージ（どの作業から Claude Code に任せるか）もここで相談する。</p>
     </section>
 
     <footer>
-      <p>Claude Code ハンズオン — 第1回：Claude Code の基本<br>Copyright © AI-Driven Development Study Group</p>
+      <p>Claude Code ハンズオン — 第1回：Claude Code の基本（バックオフィス向け）<br>Copyright © AI-Driven Development Study Group</p>
       <p><a href="index.html">← コースポータル</a> ／ <a href="session2.html">第2回 →</a></p>
     </footer>
   </main>
