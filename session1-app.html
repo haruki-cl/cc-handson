@@ -253,7 +253,7 @@
 
       <h3>2-3. AIエージェントの動き（4分）</h3>
       <figure class="shot">
-        <img src="Image/session1-backoffice/agentic-loop.svg" alt="エージェントループの図解">
+        <img src="Image/session1-app/agentic-loop.svg" alt="エージェントループの図解">
         <figcaption>エージェントループ — ②評価と③ツール実行を、答えが出るまで繰り返す</figcaption>
       </figure>
       <ol>
@@ -276,7 +276,7 @@
         <li>セッションが変わるとコンテキストはまっさらになる — <strong>1タスク1セッション</strong> が使い方の基本</li>
       </ul>
       <figure class="shot">
-        <img src="Image/session1-backoffice/session-diagram.svg" alt="セッションの図解 — 終了後は再開か新規開始かを選べる">
+        <img src="Image/session1-app/session-diagram.svg" alt="セッションの図解 — 終了後は再開か新規開始かを選べる">
         <figcaption>セッション — 起動から終了までが1つの対話単位。終了後は「続きを再開」か「まっさらな新規セッション」を選べる</figcaption>
       </figure>
       <h4>モデル</h4>
@@ -326,7 +326,7 @@
         <li>確認の度合いは承認モード（3-4）で切り替えられ、settings.json の <code class="inline">permissions</code>（4-2）で事前にルール化もできる</li>
       </ul>
       <figure class="shot">
-        <img src="Image/session1-backoffice/permission-diagram.svg" alt="パーミッションの図解 — ツール実行前の承認フロー">
+        <img src="Image/session1-app/permission-diagram.svg" alt="パーミッションの図解 — ツール実行前の承認フロー">
         <figcaption>パーミッション — ツール実行の前に承認を求め、承認された場合だけ実行される</figcaption>
       </figure>
     </section>
@@ -352,21 +352,21 @@
       <h4>動作確認</h4>
       <p>インストールが済んだらアプリを起動する。以下のホーム画面が表示されれば成功。起動直後は <strong>チャットモード</strong> になっている。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/app-home.png" alt="Claude アプリのホーム画面">
+        <img src="Image/session1-app/app-home.png" alt="Claude アプリのホーム画面">
       </figure>
       <p>左上の <code class="inline">&lt;/&gt;</code> アイコンをクリックすると <strong>Claude Code の画面</strong> に切り替わる。本コースではこちらを使う。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/code-mode.png" alt="Claude Code の画面">
+        <img src="Image/session1-app/code-mode.png" alt="Claude Code の画面">
       </figure>
 
       <h4>作業フォルダを開く</h4>
       <p>Claude Code は「どのフォルダで作業するか」を決めてから使う。入力欄の上にあるフォルダのボタンをクリックすると、最近使ったフォルダの一覧と <strong>「フォルダを開く…」</strong> が表示される。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/folder-menu.png" alt="作業フォルダの選択メニュー" style="max-width: 480px">
+        <img src="Image/session1-app/folder-menu.png" alt="作業フォルダの選択メニュー" style="max-width: 480px">
       </figure>
       <p>「フォルダを開く…」を選ぶと、ファイル選択のダイアログが開く。作業したいフォルダを選んで <strong>「開く」</strong>。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/folder-dialog.png" alt="フォルダ選択ダイアログ">
+        <img src="Image/session1-app/folder-dialog.png" alt="フォルダ選択ダイアログ">
       </figure>
       <p>初めて開くフォルダの場合、<strong>そのワークスペースを信頼するか</strong> の確認が表示される。</p>
       <ul>
@@ -375,11 +375,11 @@
         <li>心当たりのないフォルダなら、中身を確認するまでは <code class="inline">キャンセル</code> で抜ける</li>
       </ul>
       <figure class="shot">
-        <img src="Image/session1-backoffice/trust-workspace.png" alt="ワークスペースの信頼確認" style="max-width: 480px">
+        <img src="Image/session1-app/trust-workspace.png" alt="ワークスペースの信頼確認" style="max-width: 480px">
       </figure>
       <p>信頼すると作業フォルダが設定され、入力欄の上に <strong>選択したフォルダ名</strong>（例: <code class="inline">handson</code>）が表示される。以降の依頼は、このフォルダを基準に実行される。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/folder-selected.png" alt="選択した作業フォルダ名が表示された状態" style="max-width: 420px">
+        <img src="Image/session1-app/folder-selected.png" alt="選択した作業フォルダ名が表示された状態" style="max-width: 420px">
       </figure>
       <div class="callout warn">
         <strong>⚠️ 機密ファイルのあるフォルダでは開かない</strong>
@@ -395,11 +395,11 @@
         <tr><td><strong>過去のセッションを再開</strong></td><td>サイドバーの一覧から選ぶ</td></tr>
       </table>
       <figure class="shot">
-        <img src="Image/session1-backoffice/new-session-code.png" alt="サイドバー上部の「+ 新規」" style="max-width: 280px">
+        <img src="Image/session1-app/new-session-code.png" alt="サイドバー上部の「+ 新規」" style="max-width: 280px">
       </figure>
       <p>サイドバーには <strong>作業フォルダごと</strong> にセッションの一覧が表示される。開きたいセッションをクリックすると、そのときの会話（コンテキスト）を引き継いだ状態で再開する。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/sidebar-sessions.png" alt="サイドバーのセッション一覧" style="max-width: 320px">
+        <img src="Image/session1-app/sidebar-sessions.png" alt="サイドバーのセッション一覧" style="max-width: 320px">
       </figure>
       <p>※ CLI の起動オプション（<code class="inline">claude --continue</code> / <code class="inline">-r</code> / <code class="inline">-n</code> / <code class="inline">-p</code>）と「パーミッションスキップ」（<code class="inline">--dangerously-skip-permissions</code>）は、アプリには無い。パーミッションスキップに相当するのは承認モードの「権限をバイパス」（3-4）。</p>
 
@@ -409,28 +409,28 @@
       <h4>設定画面 — 状態の確認・設定の変更</h4>
       <p>CLI の <code class="inline">/status</code>（現在の環境・モデルの確認）や <code class="inline">/config</code>（動作設定の変更）にあたる操作は、アプリでは <strong>設定画面</strong> で行う。サイドバー左下のアカウント名をクリックすると開く。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/sidebar-account.png" alt="サイドバー左下のアカウント名" style="max-width: 360px">
+        <img src="Image/session1-app/sidebar-account.png" alt="サイドバー左下のアカウント名" style="max-width: 360px">
       </figure>
       <p>アカウント・プライバシー・使用量・メモリー・Claude Code などの項目が並ぶ。「いま自分がどの環境で動いているか」を最初に確認する習慣をつける。使用中のモデルは入力欄の右下に常時表示されている。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/settings-account.png" alt="設定画面（アカウント）">
+        <img src="Image/session1-app/settings-account.png" alt="設定画面（アカウント）">
       </figure>
       <p>表示言語は、同じくサイドバー左下のアカウント名から <strong>「言語」</strong> を選ぶと変更できる。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/lang-menu.png" alt="アカウントメニューの「言語」" style="max-width: 320px">
+        <img src="Image/session1-app/lang-menu.png" alt="アカウントメニューの「言語」" style="max-width: 320px">
       </figure>
       <figure class="shot">
-        <img src="Image/session1-backoffice/lang-dialog.png" alt="言語の選択ダイアログ" style="max-width: 520px">
+        <img src="Image/session1-app/lang-dialog.png" alt="言語の選択ダイアログ" style="max-width: 520px">
       </figure>
 
       <h4><code class="inline">/usage</code> — 利用量の確認</h4>
       <p>現在のセッション・週単位の利用量（レートリミットの消費状況）を確認できる。リセット時刻も表示されるので、長時間の作業前にチェックすると安心。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/usage-command.png" alt="/usage コマンドの実行結果" style="max-width: 560px">
+        <img src="Image/session1-app/usage-command.png" alt="/usage コマンドの実行結果" style="max-width: 560px">
       </figure>
       <p>入力欄の右下のアイコンをクリックすると、同じ内容を <strong>使用量パネル</strong> でも確認できる。コンテキストウィンドウの残り（2-4）も一目でわかる。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/usage-panel.png" alt="使用量パネル" style="max-width: 460px">
+        <img src="Image/session1-app/usage-panel.png" alt="使用量パネル" style="max-width: 460px">
       </figure>
       <div class="callout tip">
         <strong>💡 セッションを開始する前は</strong>
@@ -440,19 +440,19 @@
       <h4><code class="inline">/model</code> — モデルの切り替え</h4>
       <p>用途に応じてモデルを切り替える。日常タスクは Sonnet、素早い回答が欲しいときは Haiku、といった使い分けができる。実行すると入力欄の右下に選択パネルが開く（モデル名のクリックでも同じ）。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/model-select.png" alt="モデルの選択パネル" style="max-width: 380px">
+        <img src="Image/session1-app/model-select.png" alt="モデルの選択パネル" style="max-width: 380px">
       </figure>
 
       <h4><code class="inline">/effort</code> — 思考の深さの調整</h4>
       <p>「速さ ⇔ 賢さ」のトレードオフをスライダーで調整する。簡単な質問は高速側、難しい判断は高精度側に。こちらも実行すると右下にパネルが開く。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/effort-select.png" alt="エフォートの調整パネル" style="max-width: 420px">
+        <img src="Image/session1-app/effort-select.png" alt="エフォートの調整パネル" style="max-width: 420px">
       </figure>
 
       <h4><code class="inline">/init</code> — CLAUDE.md の生成</h4>
       <p>作業フォルダ全体を解析して、プロジェクトメモリ（<code class="inline">CLAUDE.md</code>）を自動生成する。フォルダで最初に一度実行しておくと、以後のセッションで Claude がそのフォルダの構造・規約を踏まえて動くようになる。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/init-command.png" alt="/init コマンドで CLAUDE.md を生成">
+        <img src="Image/session1-app/init-command.png" alt="/init コマンドで CLAUDE.md を生成">
       </figure>
       <p>生成された <code class="inline">CLAUDE.md</code> は、<strong>作業フォルダの直下</strong> に作成される。</p>
 <pre>&lt;作業フォルダ&gt;/
@@ -480,7 +480,7 @@
       <h3>3-4. 承認モードと Plan Mode（3分）</h3>
       <p>入力欄の左下に現在のモードが表示されている。クリックすると一覧から切り替えられる。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/mode-menu.png" alt="承認モードの選択メニュー" style="max-width: 420px">
+        <img src="Image/session1-app/mode-menu.png" alt="承認モードの選択メニュー" style="max-width: 420px">
       </figure>
       <table>
         <tr><th>モード</th><th>挙動</th></tr>
@@ -573,7 +573,7 @@
       </div>
       <p>実行前に、以下のような <strong>承認ダイアログ</strong> が表示される。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/permission-dialog-bash.png" alt="コマンド実行の承認ダイアログ">
+        <img src="Image/session1-app/permission-dialog-bash.png" alt="コマンド実行の承認ダイアログ">
       </figure>
       <ul>
         <li><strong>何が・何のために</strong> 実行されるかが表示される — 内容を確認してから <code class="inline">一度だけ許可</code> で進む</li>
@@ -643,10 +643,10 @@ Hello world</pre>
       <p>題材は <strong>agmsg</strong> — Claude Code・Codex・Gemini CLI などの CLI AI エージェント同士が、共有の SQLite データベースを介してメッセージを交換できるようにする OSS（Bash + SQLite 製）。まず GitHub からクローンして準備する。</p>
       <p>アプリでは、画面右上の <strong>ターミナルボタン</strong> を押すとターミナルが開く。</p>
       <figure class="shot">
-        <img src="Image/session1-backoffice/terminal-button.png" alt="画面右上のターミナルボタン" style="max-width: 200px">
+        <img src="Image/session1-app/terminal-button.png" alt="画面右上のターミナルボタン" style="max-width: 200px">
       </figure>
       <figure class="shot">
-        <img src="Image/session1-backoffice/terminal-open.png" alt="ターミナルを開いた状態">
+        <img src="Image/session1-app/terminal-open.png" alt="ターミナルを開いた状態">
       </figure>
       <p>開いたターミナルで、クローンしたい場所に移動して実行する:</p>
 <pre><span class="prompt">$</span> git clone https://github.com/fujibee/agmsg</pre>
