@@ -416,14 +416,13 @@
       <figure class="shot">
         <img src="Image/session1-backoffice/usage-panel.png" alt="使用量パネル" style="max-width: 460px">
       </figure>
-      <p>パネル下部の <code class="inline">詳細な内訳を見る</code> を押すと、設定画面の「使用量」に移動し、リセット時刻まで含めた全体像を確認できる。</p>
-      <p>さらに詳しく見たいときは <code class="inline">/usage</code> コマンドを使う。<strong>セッション開始後</strong>（プロンプトを1回でも送ったあと）に実行すると、そのセッションのコスト・トークンの内訳まで表示される。</p>
+      <p>さらに詳しく見たいときは <code class="inline">/usage</code> コマンド。<strong>そのセッションのコスト・トークンの内訳</strong> まで確認できる。</p>
       <figure class="shot">
         <img src="Image/session1-backoffice/usage-command.png" alt="/usage コマンドの実行結果" style="max-width: 560px">
       </figure>
       <div class="callout tip">
-        <strong>💡 セッション開始前に <code class="inline">/usage</code> を実行すると</strong>
-        プロンプトをまだ1度も送っていない状態で実行すると、コマンドの結果ではなく <strong>設定画面の「使用量」</strong> が開く。セッション単位の内訳を見たいときは、何か1つ依頼したあとに実行する。
+        <strong>💡 セッションを開始する前は</strong>
+        プロンプトをまだ1度も送っていない状態で <code class="inline">/usage</code> を実行すると、上の画面ではなく <strong>設定画面の「使用量」</strong> が開く。セッション単位の内訳を見たいときは、何か1つ依頼したあとに実行する。
         <figure class="shot" style="margin:12px 0 0;">
           <img src="Image/session1-backoffice/settings-usage.png" alt="設定画面の「使用量」">
         </figure>
@@ -474,10 +473,6 @@
       <div class="callout tip">
         <strong>💡 プラン</strong>
         「作業をせずに計画だけを出させる」モード。読み取り専用ツールしか使わないので、何回赤入れしても安全。方針を固めてから実作業に入りたいときに使う。
-      </div>
-      <div class="callout warn">
-        <strong>⚠️ 「権限をバイパス」は使わない</strong>
-        確認が一切なくなるため、ファイルの削除や意図しない操作もそのまま実行される。本コースでは使わない。
       </div>
       <div class="exercise">
         <span class="ex-title">✏️ 演習2</span>
@@ -582,7 +577,7 @@
         <li>デスクトップなどに <code class="inline">article-report</code> という <strong>空のフォルダ</strong> を作る（Finder / エクスプローラでよい）</li>
         <li>Claude Code を起動し、そのフォルダを作業フォルダとして開く</li>
         <li>初めて開くフォルダなので <strong>「このフォルダを信頼するか」</strong> の確認が出る → 自分で作ったフォルダなので信頼して進む（3-1 参照）</li>
-        <li>入力欄左下のモード表示から <strong>「手動」</strong> に切り替える（3-4）。承認ダイアログが何度か出てくるが、それ自体が体験の一部</li>
+        <li>入力欄左下のモード表示から <strong>「手動」</strong> に切り替える（3-4）。このあと承認ダイアログが何度か表示されるので、内容を確認しながら進める</li>
       </ol>
       <h3>6-2. Web 記事を日本語の資料にする（8分）</h3>
       <p>記事の URL を渡して、日本語の資料化を依頼する。</p>
