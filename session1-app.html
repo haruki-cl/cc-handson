@@ -301,7 +301,7 @@
       <h4>セッション</h4>
       <ul>
         <li>1つの依頼を始めてから終えるまでの <strong>1つの対話単位</strong>。会話履歴（コンテキスト）はセッションごとに保持される</li>
-        <li>終了しても履歴は残っており、サイドバーの一覧から選んで再開できる</li>
+        <li>終了しても履歴は残っており、サイドバーの一覧から選んで再開できる（CLI の <code class="inline">claude --continue</code>（直前）や <code class="inline">claude -r</code>（一覧から選択）にあたる）</li>
         <li>セッションが変わるとコンテキストはまっさらになる — <strong>1タスク1セッション</strong> が使い方の基本</li>
       </ul>
       <figure class="shot">
@@ -413,21 +413,35 @@
       <figure class="shot">
         <img src="Image/session1-app/sidebar-sessions.png" alt="サイドバーのセッション一覧" style="max-width: 320px">
       </figure>
-      <p>※ 講師が「上級者向け」として説明するパーミッションスキップ（<code class="inline">--dangerously-skip-permissions</code> / <code class="inline">--allow-dangerously-skip-permissions</code>）も CLI の起動オプションなので、アプリには無い。相当するのは承認モードの「権限をバイパス」（3-4）。</p>
+      <h4>パーミッションスキップ（上級者向け）</h4>
+      <table>
+        <tr><th>CLI のオプション</th><th>挙動</th></tr>
+        <tr><td><code class="inline">--dangerously-skip-permissions</code></td><td>すべてのパーミッション確認をスキップして実行する</td></tr>
+        <tr><td><code class="inline">--allow-dangerously-skip-permissions</code></td><td>スキップを既定では無効のまま、セッション中に選択できるようにする</td></tr>
+      </table>
+      <p>どちらも CLI の起動オプションなので、アプリには無い。アプリで相当するのは承認モードの「権限をバイパス」（3-4）。</p>
+      <div class="callout warn">
+        <strong>⚠️ 注意</strong>
+        いずれも <strong>インターネットアクセスのないサンドボックス環境でのみ</strong> 推奨。隔離された環境以外では使わないこと。アプリの「権限をバイパス」も同じ。
+      </div>
 
       <h3>3-3. スラッシュコマンド（9分）</h3>
       <p>入力欄に <code class="inline">/</code> を打つとコマンドの一覧が出る。まず最初に実施しておきたいものを順に紹介する。</p>
 
-      <h4>設定画面 — 状態の確認・設定の変更</h4>
-      <p>CLI の <code class="inline">/status</code>（現在の環境・モデルの確認）や <code class="inline">/config</code>（動作設定の変更）にあたる操作は、アプリでは <strong>設定画面</strong> で行う。サイドバー左下のアカウント名をクリックすると開く。</p>
+      <h4><code class="inline">/status</code> — セッション状態の確認</h4>
+      <p>CLI では、バージョン・サインイン情報・使用モデル・MCP サーバの状態など、現在のセッションの全体像を一覧表示する。「いま自分がどの環境・どのモデルで動いているか」を最初に確認する習慣をつける。</p>
+      <p>アプリには <code class="inline">/status</code> は無く、<strong>設定画面</strong> で確認する。サイドバー左下のアカウント名をクリックすると開く。</p>
       <figure class="shot">
         <img src="Image/session1-app/sidebar-account.png" alt="サイドバー左下のアカウント名" style="max-width: 360px">
       </figure>
-      <p>アカウント・プライバシー・使用量・メモリー・Claude Code などの項目が並ぶ。「いま自分がどの環境で動いているか」を最初に確認する習慣をつける。使用中のモデルは入力欄の右下に常時表示されている。</p>
+      <p>アカウント・プライバシー・使用量・メモリー・Claude Code などの項目が並ぶ。使用中のモデルは入力欄の右下に常時表示されている。</p>
       <figure class="shot">
         <img src="Image/session1-app/settings-account.png" alt="設定画面（アカウント）">
       </figure>
-      <p>表示言語は、同じくサイドバー左下のアカウント名から <strong>「言語」</strong> を選ぶと変更できる（CLI の <code class="inline">/config</code> で <code class="inline">Language</code> を <code class="inline">Japanese</code> にする操作にあたる）。</p>
+
+      <h4><code class="inline">/config</code> — 設定の確認・変更</h4>
+      <p>CLI では、Auto-compact / Thinking mode / 既定のパーミッションモードなど、Claude Code の動作設定を対話的に確認・変更する。設定項目の <code class="inline">Language</code> を <code class="inline">Japanese</code> に変更すると、Claude Code の出力言語を日本語にできる。</p>
+      <p>アプリには <code class="inline">/config</code> は無く、動作設定の変更も <strong>設定画面</strong>（上の <code class="inline">/status</code> と同じ画面）で行う。表示言語は、サイドバー左下のアカウント名から <strong>「言語」</strong> を選ぶと変更できる。</p>
       <figure class="shot">
         <img src="Image/session1-app/lang-menu.png" alt="アカウントメニューの「言語」" style="max-width: 320px">
       </figure>
@@ -476,7 +490,12 @@
       <h4><code class="inline">/compact</code> — コンテキストの圧縮</h4>
       <p>会話が長くなってコンテキストウィンドウ（2-4）が埋まってきたとき、履歴を要約して圧縮する。自動でも走るが、区切りのよいところで明示的に実行してもよい。</p>
 
-      <p>※ CLI にある <code class="inline">/help</code>・<code class="inline">/exit</code> はアプリには無い。コマンドの一覧は入力欄に <code class="inline">/</code> を打つと表示され、終了はウィンドウを閉じる。</p>
+      <h4>その他の基本コマンド</h4>
+      <table>
+        <tr><th>コマンド</th><th>CLI での説明</th><th>アプリでは</th></tr>
+        <tr><td><code class="inline">/help</code></td><td>コマンド一覧</td><td>アプリには無い。入力欄に <code class="inline">/</code> を打つと一覧が表示される</td></tr>
+        <tr><td><code class="inline">/exit</code></td><td>セッション終了</td><td>アプリには無い。ウィンドウを閉じる（3-2）</td></tr>
+      </table>
 
       <div class="callout tip">
         <strong>💡 TIPS：プライバシー設定（Pro / Max プラン加入者）</strong>
@@ -672,7 +691,7 @@ Hello world</pre>
         <tr><th>キー</th><th>動作</th></tr>
         <tr><td><code class="inline">Shift + Tab</code></td><td>CLI ではパーミッションモードの循環。<strong>アプリには無い</strong> — 入力欄左下のモード表示から切り替える（3-4）</td></tr>
         <tr><td><code class="inline">Ctrl + C</code></td><td>CLI では入力クリア / 2回でセッション中断。<strong>アプリでは効かない</strong></td></tr>
-        <tr><td><code class="inline">Esc</code></td><td>作業中の処理を停止（入力欄右の停止ボタンでも同じ）</td></tr>
+        <tr><td><code class="inline">Esc</code></td><td>作業中の処理を停止（ループへの割り込み。入力欄右の停止ボタンでも同じ）。CLI では入力クリアにも使う</td></tr>
         <tr><td><code class="inline">Ctrl + R</code></td><td>履歴検索</td></tr>
         <tr><td><code class="inline">Up / Down</code></td><td>履歴ナビゲーション</td></tr>
       </table>
