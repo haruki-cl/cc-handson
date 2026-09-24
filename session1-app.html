@@ -261,7 +261,7 @@
         <li><strong>評価して応答する。</strong> Claude が今の状況を見て、どう進めるか決める。テキストで答える／ツールを使う（ファイル読込・編集・コマンド実行など）／その両方、のいずれか。</li>
         <li><strong>ツールを実行する。</strong> 要求されたツールを実行し、結果を Claude に返す。この結果が次の判断材料になる。Hooks を使えば、ツールの実行を <strong>実行前に止めたり書き換えたり</strong> できる（Section 2）。</li>
         <li><strong>繰り返す。</strong> ステップ 2 と 3 を繰り返す。この 1 サイクルが <strong>1 ターン</strong>。ツールを使わずに答えだけ返せる状態になるまで続く。</li>
-        <li><strong>結果を返す。</strong> 最終的な回答テキストを返し、その作業で使った <strong>トークン量・コスト</strong> も確認できる（<code class="inline">/usage</code> で見られる。CLI の <code class="inline">/status</code> で見る情報は、アプリでは設定画面で確認する — 3-3）。</li>
+        <li><strong>結果を返す。</strong> 最終的な回答テキストを返し、その作業で使った <strong>トークン量・コスト・セッション ID</strong> も確認できる（<code class="inline">/usage</code> や <code class="inline">/status</code> で見られる。アプリでは <code class="inline">/status</code> の代わりに設定画面で確認する — 3-3）。</li>
       </ol>
       <div class="callout tip">
         <strong>💡 人間の関与</strong>
@@ -300,7 +300,7 @@
       <p>参考: トークン分割を体験できるツール（OpenAI Tokenizer） — <a href="https://platform.openai.com/tokenizer" target="_blank" rel="noopener">platform.openai.com/tokenizer</a></p>
       <h4>セッション</h4>
       <ul>
-        <li>1つの依頼を始めてから終えるまでの <strong>1つの対話単位</strong>。会話履歴（コンテキスト）はセッションごとに保持される</li>
+        <li>セッションの開始から終了までの <strong>1つの対話単位</strong>（CLI では <code class="inline">claude</code> の起動から終了まで）。会話履歴（コンテキスト）はセッションごとに保持される</li>
         <li>終了しても履歴は残っており、サイドバーの一覧から選んで再開できる（CLI の <code class="inline">claude --continue</code>（直前）や <code class="inline">claude -r</code>（一覧から選択）にあたる）</li>
         <li>セッションが変わるとコンテキストはまっさらになる — <strong>1タスク1セッション</strong> が使い方の基本</li>
       </ul>
@@ -346,21 +346,17 @@
       <h3>3-1. インストール（4分）</h3>
       <p><a href="https://claude.com/ja/download" target="_blank" rel="noopener">claude.com/ja/download</a> からインストーラをダウンロードしてインストールする。アプリには Claude Code が含まれているので、CLI を別途インストールする必要はない。</p>
       <p>※ 講師が説明する CLI のインストールコマンド（macOS / Linux / WSL の <code class="inline">curl -fsSL https://claude.ai/install.sh | bash</code>、Windows の <code class="inline">Invoke-RestMethod https://claude.ai/install.ps1 | Invoke-Expression</code>）と、Windows の環境変数 <code class="inline">Path</code> への登録は CLI 用の手順。アプリ利用者は行わなくてよい。</p>
-      <div class="callout">
-        <strong>初回サインイン</strong>
-        初回起動時はブラウザが開き、Claude アカウントでのサインイン（サブスクリプションの認証）が行われる。
-      </div>
 
       <div class="callout tip">
         <strong>💡 TIPS：gh コマンドが入っていない場合</strong>
-        7章の演習3で使う。ターミナル（7章）からインストールできる。<br>
+        アプリでは、7章で紹介するターミナルから実行できる。<br>
         macOS では Homebrew でインストールできる: <code class="inline">brew install gh</code><br>
         Windows では winget でインストールできる: <code class="inline">winget install --id GitHub.cli</code><br>
         インストールと設定（<code class="inline">gh auth login</code> など）の参考: <a href="https://qiita.com/s_yasunaga/items/110d21828bd4f578850d" target="_blank" rel="noopener">Qiita — GitHub CLI（gh）のインストールと設定</a>
       </div>
 
       <h4>動作確認</h4>
-      <p>インストールが済んだらアプリを起動する。以下のホーム画面が表示されれば成功。起動直後は <strong>チャットモード</strong> になっている。講師の画面（CLI）では、ターミナルで <code class="inline">claude</code> を起動してウェルカム画面を表示する手順にあたる。</p>
+      <p>インストールが済んだらアプリを起動する。以下のホーム画面が表示されれば成功。起動直後は <strong>チャットモード</strong> になっている。講師の画面（CLI）では、ターミナルで <code class="inline">claude</code> を起動してウェルカム画面を表示する手順にあたる（CLI では初回にテーマ選択 → サインイン方法の選択も表示される）。</p>
       <figure class="shot">
         <img src="Image/session1-app/app-home.png" alt="Claude アプリのホーム画面">
       </figure>
@@ -381,7 +377,7 @@
       <p>初めて開くフォルダの場合、<strong>そのワークスペースを信頼するか</strong> の確認が表示される。</p>
       <ul>
         <li>Claude Code は開いたフォルダ配下を <strong>読み取り・編集・コマンド実行</strong> できる。そのために開くときにユーザへ確認を行う（ハーネス機能）</li>
-        <li>自分が作った／信頼できるフォルダ（自分の資料・チームの成果物など）なら <code class="inline">ワークスペースを信頼</code>（CLI の <code class="inline">1. Yes, I trust this folder</code>）</li>
+        <li>自分が作った／信頼できるプロジェクト（自分のコード・有名な OSS・チームの成果物）なら <code class="inline">ワークスペースを信頼</code>（CLI の <code class="inline">1. Yes, I trust this folder</code>）</li>
         <li>心当たりのないフォルダなら、中身を確認するまでは <code class="inline">キャンセル</code> で抜ける（CLI の <code class="inline">2. No, exit</code>）</li>
       </ul>
       <figure class="shot">
@@ -391,18 +387,22 @@
       <figure class="shot">
         <img src="Image/session1-app/folder-selected.png" alt="選択した作業フォルダ名が表示された状態" style="max-width: 420px">
       </figure>
-      <div class="callout warn">
-        <strong>⚠️ 機密ファイルのあるフォルダでは開かない</strong>
-        開いたフォルダ配下には <strong>すべてアクセスできる</strong>。人事情報・顧客情報など機密ファイルを含むフォルダは、必要な範囲だけを別フォルダに切り出してから開く。
+      <ul>
+        <li>開いたフォルダ配下に <strong>すべてアクセスできる</strong> → 機密ディレクトリは作業フォルダとして開かない（CLI の「機密ディレクトリでは起動しない」）</li>
+      </ul>
+      <div class="callout">
+        <strong>初回サインイン</strong>
+        初回起動時はブラウザが開き、Claude アカウントでのサインイン（サブスクリプションの認証）が行われる。
       </div>
 
       <h3>3-2. 起動・終了・再開（3分）</h3>
       <p>セッション（2-4）の開始も再開も、左のサイドバーから行う。</p>
       <table>
         <tr><th>操作</th><th>アプリでの方法</th><th>CLI では（講師の説明）</th></tr>
-        <tr><td>開始</td><td>サイドバー上部の <code class="inline">+ 新規</code></td><td><code class="inline">claude</code></td></tr>
+        <tr><td>起動</td><td>サイドバー上部の <code class="inline">+ 新規</code></td><td>プロジェクト直下で <code class="inline">claude</code></td></tr>
         <tr><td>終了</td><td>ウィンドウを閉じる（履歴は残る）</td><td><code class="inline">Ctrl + C</code> を 2 回 / <code class="inline">/exit</code></td></tr>
-        <tr><td><strong>過去のセッションを再開</strong></td><td>サイドバーの一覧から選ぶ</td><td><code class="inline">claude --continue</code>（直前の続き）/ <code class="inline">claude -r</code>（<code class="inline">--resume</code>。選んで再開）</td></tr>
+        <tr><td><strong>直前の続きから再開</strong></td><td>サイドバーの一覧から直前のセッションを選ぶ</td><td><code class="inline">claude --continue</code></td></tr>
+        <tr><td>過去のセッションを選んで再開</td><td>サイドバーの一覧から選ぶ</td><td><code class="inline">claude -r</code>（<code class="inline">--resume</code>）</td></tr>
         <tr><td>セッションに名前を付ける</td><td>起動オプションのためアプリには無い</td><td><code class="inline">claude -n &lt;name&gt;</code>（<code class="inline">--name &lt;name&gt;</code>）</td></tr>
         <tr><td>非対話で 1 問だけ</td><td>起動オプションのためアプリには無い</td><td><code class="inline">claude -p "..."</code></td></tr>
       </table>
@@ -426,7 +426,7 @@
       </div>
 
       <h3>3-3. スラッシュコマンド（9分）</h3>
-      <p>入力欄に <code class="inline">/</code> を打つとコマンドの一覧が出る。まず最初に実施しておきたいものを順に紹介する。</p>
+      <p>まず最初に実施しておきたいコマンドを順に紹介する。</p>
 
       <h4><code class="inline">/status</code> — セッション状態の確認</h4>
       <p>CLI では、バージョン・サインイン情報・使用モデル・MCP サーバの状態など、現在のセッションの全体像を一覧表示する。「いま自分がどの環境・どのモデルで動いているか」を最初に確認する習慣をつける。</p>
@@ -470,25 +470,22 @@
       </figure>
 
       <h4><code class="inline">/effort</code> — 思考の深さの調整</h4>
-      <p>「速さ ⇔ 賢さ」のトレードオフをスライダーで調整する（CLI では <code class="inline">low</code> 〜 <code class="inline">max</code> の5段階から選ぶ）。簡単な質問は高速側、難しい判断は高精度側に。こちらも実行すると右下にパネルが開く。</p>
+      <p>「速さ ⇔ 賢さ」のトレードオフをスライダーで調整する（CLI では <code class="inline">low</code> 〜 <code class="inline">max</code> の5段階から選ぶ）。簡単な質問は低く（高速側）、難しい設計判断は高く（高精度側）。こちらも実行すると右下にパネルが開く。</p>
       <figure class="shot">
         <img src="Image/session1-app/effort-select.png" alt="エフォートの調整パネル" style="max-width: 420px">
       </figure>
 
       <h4><code class="inline">/init</code> — CLAUDE.md の生成</h4>
-      <p>作業フォルダ全体を解析して、プロジェクトメモリ（<code class="inline">CLAUDE.md</code>）を自動生成する。フォルダで最初に一度実行しておくと、以後のセッションで Claude がそのフォルダの構造・規約を踏まえて動くようになる。</p>
+      <p>リポジトリ全体を解析して、プロジェクトメモリ（<code class="inline">CLAUDE.md</code>）を自動生成する。プロジェクトで最初に一度実行しておくと、以後のセッションで Claude がプロジェクトの構造・規約を踏まえて動くようになる。</p>
       <figure class="shot">
         <img src="Image/session1-app/init-command.png" alt="/init コマンドで CLAUDE.md を生成">
       </figure>
-      <p>生成された <code class="inline">CLAUDE.md</code> は、<strong>作業フォルダの直下</strong> に作成される。</p>
-<pre>&lt;作業フォルダ&gt;/
+      <p>生成された <code class="inline">CLAUDE.md</code> は、<strong>作業フォルダ（プロジェクトルート）直下</strong> に作成される（CLI では <code class="inline">claude</code> を起動したディレクトリ）。</p>
+<pre>&lt;プロジェクトルート&gt;/
 ├── CLAUDE.md   <span class="comment">← ここに作成される</span>
-├── 議事録/
-├── 資料/
+├── app/
+├── routes/
 └── ...</pre>
-
-      <h4><code class="inline">/compact</code> — コンテキストの圧縮</h4>
-      <p>会話が長くなってコンテキストウィンドウ（2-4）が埋まってきたとき、履歴を要約して圧縮する。自動でも走るが、区切りのよいところで明示的に実行してもよい。</p>
 
       <h4>その他の基本コマンド</h4>
       <table>
@@ -517,21 +514,22 @@
       </div>
 
       <h3>3-4. 承認モードと Plan Mode（3分）</h3>
-      <p>入力欄の左下に現在のモードが表示されている。クリックすると一覧から切り替えられる。講師の画面（CLI）では <code class="inline">Shift + Tab</code> でモードを循環切り替えし、ステータスバーに <code class="inline">▶▶ accept edits on</code> / <code class="inline">⏸ plan mode on</code> / <code class="inline">▶▶ auto mode on</code> と表示される（Default では <code class="inline">? for shortcuts</code> だけが出る）。</p>
+      <p>入力欄の左下に現在のモードが表示されている。クリックすると一覧から切り替えられる。</p>
       <figure class="shot">
         <img src="Image/session1-app/mode-menu.png" alt="承認モードの選択メニュー" style="max-width: 420px">
       </figure>
       <table>
-        <tr><th>モード</th><th>CLI での名前</th><th>挙動</th></tr>
-        <tr><td>自動</td><td>Auto</td><td>バックグラウンドの安全チェック付きでツール呼び出しを <strong>自動承認</strong>（危険な操作のみ確認に切り替わる）</td></tr>
-        <tr><td>手動</td><td>Default（Manual）</td><td>変更を加える前に毎回確認する。各ツールの初回使用時に承認を求める</td></tr>
-        <tr><td>編集を受け入れる</td><td>Accept Edits</td><td>ファイル編集と一般的なファイル操作（<code class="inline">mkdir</code> <code class="inline">mv</code> <code class="inline">cp</code> 等）は自動承認、それ以外のコマンドは承認</td></tr>
-        <tr><td>プラン</td><td>Plan Mode</td><td><strong>読み取り専用</strong> ツールだけで計画を立てる（編集しない）</td></tr>
+        <tr><th>モード</th><th>CLI での名前（ステータスバー表示）</th><th>挙動</th></tr>
+        <tr><td>手動</td><td>Default（表示なし <code class="inline">? for shortcuts</code>）</td><td>標準動作。各ツールの初回使用時に承認を求める</td></tr>
+        <tr><td>編集を受け入れる</td><td>Accept Edits（<code class="inline">▶▶ accept edits on</code>）</td><td>ファイル編集と一般的なファイル操作（<code class="inline">mkdir</code> <code class="inline">mv</code> <code class="inline">cp</code> 等）は自動承認、それ以外のコマンドは承認</td></tr>
+        <tr><td>プラン</td><td>Plan Mode（<code class="inline">⏸ plan mode on</code>）</td><td><strong>読み取り専用</strong> ツールだけで計画を立てる（編集しない）</td></tr>
+        <tr><td>自動</td><td>Auto（<code class="inline">▶▶ auto mode on</code>）</td><td>バックグラウンドの安全チェック付きでツール呼び出しを <strong>自動承認</strong>（危険な操作のみ確認に切り替わる）</td></tr>
         <tr><td>権限をバイパス</td><td>（CLI では起動オプションの <code class="inline">--dangerously-skip-permissions</code>。3-2）</td><td>すべての権限を承認し、確認を一切しない</td></tr>
       </table>
+      <p>CLI では <code class="inline">Shift + Tab</code> で上記4つ（手動〜自動）を循環切り替え。アプリでは入力欄左下のモード表示から選ぶ。</p>
       <div class="callout tip">
-        <strong>💡 2026年8月14日から「自動」がデフォルトに</strong>
-        Pro / Max / Team プランでは、2026年8月14日以降に開始する <strong>新しいセッションのデフォルト承認モードが「自動」になる</strong>。バックグラウンドの安全チェックが働き、危険な操作（<code class="inline">curl | bash</code> の実行、本番環境へのデプロイ、機密情報の送信など）は従来どおり確認を求める。都度確認する「手動」をデフォルトに戻したい場合は、<code class="inline">~/.claude/settings.json</code> に <code class="inline">{ "permissions": { "defaultMode": "default" } }</code> を設定する（CLI 版の資料にある <code class="inline">"manual"</code> は CLI が受け付ける別名。設定ファイルの正式な値は <code class="inline">"default"</code>）。自分で defaultMode を設定済みの場合や、組織が管理する設定がある場合は、そのまま維持される。
+        <strong>💡 2026年8月14日から「自動」（Auto mode）がデフォルトに</strong>
+        Pro / Max / Team プランでは、2026年8月14日以降に開始する <strong>新しいセッションのデフォルト承認モードが「自動」（Auto）になる</strong>。バックグラウンドの安全チェックが働き、危険な操作（<code class="inline">curl | bash</code> の実行、本番環境へのデプロイ、機密情報の送信など）は従来どおり確認を求める。都度確認する「手動」（Manual）をデフォルトに戻したい場合は、<code class="inline">~/.claude/settings.json</code> に <code class="inline">{ "permissions": { "defaultMode": "default" } }</code> を設定する（CLI 版の資料にある <code class="inline">"manual"</code> は CLI が受け付ける別名。設定ファイルの正式な値は <code class="inline">"default"</code>）。自分で defaultMode を設定済みの場合や、組織が管理する設定がある場合は、そのまま維持される。
       </div>
       <h4>使い分けの目安</h4>
       <ul>
@@ -541,8 +539,8 @@
         <li>確認の往復を減らして長めのタスクを任せたい → <strong>自動</strong>（Auto。2026年8月14日以降のデフォルト）</li>
       </ul>
       <div class="callout tip">
-        <strong>💡 プラン</strong>
-        「作業をせずに計画だけを出させる」モード。読み取り専用ツールしか使わないので、何回赤入れしても安全。
+        <strong>💡 プラン（Plan Mode）</strong>
+        「コードを書かずに計画だけを出させる」モード。読み取り専用ツールしか使わないので、何回赤入れしても安全。
       </div>
       <div class="callout warn">
         <strong>⚠️ TIPS：音声入力のときはモードを変えて安全に</strong>
@@ -614,7 +612,7 @@
 
       <h3>5-2. 承認して作らせる（2分）</h3>
       <ul>
-        <li>Claude がファイル作成の承認を求めてくる → 内容を確認して承認（<strong>「手動」モードの承認フロー</strong> を体験）</li>
+        <li>Claude がファイル作成の承認を求めてくる → 内容を確認して承認（<strong>「手動」（Default）モードの承認フロー</strong> を体験）</li>
         <li>作成されたファイル（例：<code class="inline">hello.sh</code>）の中身を確認する</li>
       </ul>
 
@@ -628,9 +626,9 @@
         <img src="Image/session1-app/permission-dialog-bash.png" alt="コマンド実行の承認ダイアログ">
       </figure>
       <ul>
-        <li><strong>何が・何のために</strong> 実行されるかが表示される — 内容を確認してから <code class="inline">一度だけ許可</code>（CLI の <code class="inline">1. Yes</code>）で進む</li>
-        <li><code class="inline">常に許可</code>（CLI の <code class="inline">2. Yes, and don't ask again for: bash *</code>）を選ぶと、以後その操作は確認なしで実行される（許可リストに追加される）</li>
-        <li>心当たりのない操作なら <code class="inline">拒否</code>（CLI の <code class="inline">3. No</code>）で断れる — これが第2章で学んだ <strong>承認モデル（ハーネス）</strong> の実物</li>
+        <li><strong>何のコマンドが・何のために</strong> 実行されるかが表示される — 内容を確認してから <code class="inline">一度だけ許可</code>（CLI の <code class="inline">1. Yes</code>）で許可する</li>
+        <li><code class="inline">常に許可</code>（CLI の <code class="inline">2. Yes, and don't ask again for: bash *</code>）を選ぶと、以後 <code class="inline">bash</code> コマンドは確認なしで実行される（許可リストに追加される）</li>
+        <li>心当たりのないコマンドなら <code class="inline">拒否</code>（CLI の <code class="inline">3. No</code>）で拒否できる — これが第2章で学んだ <strong>承認モデル（ハーネス）</strong> の実物</li>
       </ul>
 <pre><span class="prompt">$</span> bash hello.sh
 Hello world</pre>
@@ -640,7 +638,7 @@ Hello world</pre>
       </ul>
       <div class="callout tip">
         <strong>💡 確認の質問が来たら</strong>
-        指示が曖昧なとき（ファイル名はどうするか等）は Claude が確認の質問をしてくることがある。勝手に進めないのが「手動」モードの正常な動き。
+        指示が曖昧なとき（CLI か Web か、ファイル名はどうするか等）は Claude が確認の質問をしてくることがある。勝手に進めないのが「手動」（Default）モードの正常な動き。
       </div>
       <div class="callout tip">
         <strong>💡 TIPS：スピナー（作業中の表示）</strong>
@@ -781,7 +779,7 @@ Hello world</pre>
       <table>
         <tr><th>章</th><th>学んだこと</th></tr>
         <tr><td>2</td><td>Claude Code は <strong>エージェント型</strong> — コンテキスト収集 → ツール実行 → 検証のループを自走する。基本用語（モデル / コンテキスト / トークン / ハーネス / セッション）</td></tr>
-        <tr><td>3</td><td>インストールと作業フォルダを開く手順、サイドバーからのセッションの開始・再開（CLI の <code class="inline">--continue</code> <code class="inline">-r</code>）、最初に実行するスラッシュコマンド（CLI の <code class="inline">/status</code> <code class="inline">/config</code> はアプリでは設定画面。<code class="inline">/usage</code> <code class="inline">/model</code> <code class="inline">/effort</code> <code class="inline">/init</code> <code class="inline">/compact</code>）、承認モード（CLI の4つ＋アプリの「権限をバイパス」）</td></tr>
+        <tr><td>3</td><td>起動・終了・再開（CLI の <code class="inline">--continue</code> <code class="inline">-r</code>。アプリではサイドバー）、最初に実行するスラッシュコマンド（<code class="inline">/status</code> <code class="inline">/config</code> <code class="inline">/usage</code> <code class="inline">/model</code> <code class="inline">/effort</code> <code class="inline">/init</code>。<code class="inline">/status</code> <code class="inline">/config</code> はアプリでは設定画面）、4つの承認モード（アプリではこのほかに「権限をバイパス」）</td></tr>
         <tr><td>4</td><td>設定ファイルの階層 — settings.json（ハーネスの動作設定）と CLAUDE.md（Claude への指示）</td></tr>
         <tr><td>5</td><td>自然言語の依頼だけで Hello world アプリを作成 — 依頼 → 作成 → 実行 → 確認のループを体験</td></tr>
         <tr><td>6</td><td>コマンド体系と特殊プレフィックス — <code class="inline">@</code>（ファイル参照）・<code class="inline">!</code>（シェル実行）・<code class="inline">#</code>（メモリ追記。CLI のみ）</td></tr>
