@@ -499,11 +499,8 @@
 
       <div class="callout tip">
         <strong>💡 TIPS：プライバシー設定（Pro / Max プラン加入者）</strong>
-        講師が説明する CLI の <code class="inline">/privacy-settings</code> にあたる設定は、アプリでは <strong>設定画面の「プライバシー」</strong> で確認する。ここで <strong>会話データをモデルの学習（トレーニング）に使わせないようにオプトアウト</strong> できる。業務のファイルを扱うなら、まずこの設定を見直しておくと安心。
-        <ul style="margin:8px 0 0;padding-left:20px;">
-          <li>学習をオフにすると、データ保持期間も短くなる</li>
-          <li>ウェブからも変更可能：<code class="inline">https://claude.ai/settings/data-privacy-controls</code></li>
-        </ul>
+        講師が説明するのは、CLI の <code class="inline">/privacy-settings</code> で <strong>会話データをモデルの学習（トレーニング）に使わせないようにオプトアウト</strong> する設定（学習をオフにするとデータ保持期間も短くなり、ウェブの <code class="inline">https://claude.ai/settings/data-privacy-controls</code> からも変更できる）。
+        本コースで使うアカウントは、この設定を管理側がまとめて管理している。アプリの設定画面に「プライバシー」のメニューはあるが、学習のオプトアウトを自分で変更する項目は無いので、設定する必要はない。
       </div>
 
       <div class="exercise">
@@ -555,7 +552,7 @@
         </figure>
         マイク横の <code class="inline">▾</code> では、使うマイクの選択と「長押しで録音」のオン／オフを切り替えられる。CLI の <code class="inline">/voice tap</code> や autoSubmit 設定による自動送信にあたる設定は、このメニューには無い。
         <figure class="shot" style="margin:12px 0 0;">
-          <img src="Image/session1-app/voice-menu.png" alt="マイクの選択と「長押しで録音」の切り替えメニュー" style="max-width: 400px">
+          <img src="Image/session1-app/voice-menu.png" alt="マイクの選択と「長押しで録音」の切り替えメニュー" style="max-width: 380px">
         </figure>
         音声（Voice）で指示すると、聞き取りミスや言い間違いが <strong>そのまま指示になる</strong>。「消して」「戻して」が誤認識されれば、「自動」（Auto）や「編集を受け入れる」（Accept Edits）では確認なしにファイル削除や <code class="inline">git reset</code> が走りうる。音声で操作するときは入力欄左下のモード表示から <strong>「手動」（Default）か「プラン」（Plan Mode）に切り替え</strong>、文字起こしされた指示と承認ダイアログを目で確認してから許可する。長めの依頼は「プラン」で計画だけ出させ、内容を確認してから解除して実行するのが安全。
       </div>
