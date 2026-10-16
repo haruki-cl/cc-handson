@@ -30,10 +30,10 @@
 
   <!-- 分岐 -->
   <line x1="320" y1="110" x2="464" y2="90" stroke="#78716c" stroke-width="1.6" marker-end="url(#arrow)"/>
-  <text x="392" y="84" font-size="9.5" fill="#78716c" text-anchor="middle">claude --continue ／ claude -r</text>
+  <text x="392" y="84" font-size="9.5" fill="#78716c" text-anchor="middle">続きから再開する</text>
 
   <line x1="320" y1="160" x2="464" y2="238" stroke="#78716c" stroke-width="1.6" marker-end="url(#arrow)"/>
-  <text x="392" y="214" font-size="9.5" fill="#78716c" text-anchor="middle">claude（新規起動）</text>
+  <text x="392" y="214" font-size="9.5" fill="#78716c" text-anchor="middle">新しく起動する</text>
 
   <!-- 再開 -->
   <rect x="470" y="52" width="220" height="76" rx="12" fill="#f7e4d8" stroke="#d97757" stroke-width="1.5"/>

@@ -13,10 +13,11 @@ Claude Code ハンズオン Section 1「Claude Code の基本」（90分）の�
 
 ## スタイル・表記
 
-- index.html は外部依存なしの単一ファイル。CSS はファイル内に埋め込んであり、デザイントークン（アンバー基調 `--accent: #d97706`、`.callout` / `.prompt-box` / `.lesson` 等のコンポーネント）を使う
+- index.html は外部依存なしの単一ファイル。CSS はファイル内に埋め込んであり、デザイントークン（テラコッタ基調 `--accent: #d97757`、`.callout` / `.prompt-box` / `.lesson` 等のコンポーネント）を使う
 - 日本語テキストは Unicode **NFC** で統一する（過去に NFD（濁点分離）混入で Edit の文字列一致が失敗した経緯あり）
 - 時間配分の合計は 90分に合わせる。章の分数を変更したら、合計が 90分に一致するよう再配分する
-- コマンド例は題材（agmsg: Bash + SQLite）に合わせる（`bats tests/`、`shellcheck scripts/*.sh` 等）
+- 演習の題材は `hello-world`（シェルスクリプトの Hello world と CLAUDE.md の演習）と `mini-game`（テトリス風の落ち物パズル。index.html・style.css・game.js の3ファイル）。コマンド例・プロンプト例はこの題材に合わせる
+- 説明は前から順に積み上げる。「後述」や後ろの章番号への参照は書かない（後ろの章から前の章を振り返る参照はよい）。図版（SVG）の文字も同じ
 - Section 2 以降の内容には触れない。「Section 2 で扱う」のような後続 Section への参照・予告は書かない
 - 単独の講座として見せるため、ページ上では「Section 1」の表記も使わない（タイトルは「Claude Code の基本」）
 

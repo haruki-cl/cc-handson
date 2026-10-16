@@ -52,5 +52,5 @@
 
   <!-- まとめ -->
   <rect x="30" y="228" width="760" height="42" rx="10" fill="#fbf3ec" stroke="#d97757" stroke-width="1"/>
-  <text x="410" y="254" font-size="12" fill="#292524" text-anchor="middle">コンテキストウィンドウの上限（例：200K）も利用量（レートリミット）も、このトークン数で数える — /usage で確認できる</text>
+  <text x="410" y="254" font-size="12" fill="#292524" text-anchor="middle">コンテキストウィンドウの上限（例：200K）も利用量（レートリミット）も、このトークン数で数える</text>
 </svg>
