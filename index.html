@@ -197,7 +197,7 @@
       <h1>Claude Code の基本</h1>
       <p>「目標：チャットで AI を使ったことがある人が、Claude Code（ハーネスを備えた AI）の仕組みを知り、実際に使えるようになる」</p>
       <div class="badges">
-        <span class="badge">85分</span>
+        <span class="badge">87分</span>
         <span class="badge">仕組みの理解</span>
         <span class="badge">基本操作</span>
         <span class="badge">CLAUDE.md</span>
@@ -214,13 +214,13 @@
         <li>CLAUDE.md・<code class="inline">@</code>・<code class="inline">!</code> で Claude に情報を渡せる</li>
         <li>Claude に作らせたコードの構造を、Claude に説明させて図に残せる</li>
       </ul>
-      <h3>時間配分（85分）</h3>
+      <h3>時間配分（87分）</h3>
       <table>
         <tr><th>#</th><th>内容（手を動かしながら進めます）</th><th>時間</th></tr>
         <tr><td>1</td><td>オープニング</td><td>4分</td></tr>
         <tr><td>2</td><td>Claude Code とは？</td><td>12分</td></tr>
         <tr><td>3</td><td>基本的な使い方</td><td>20分</td></tr>
-        <tr><td>4</td><td>Claude に情報を渡す</td><td>14分</td></tr>
+        <tr><td>4</td><td>Claude に情報を渡す</td><td>16分</td></tr>
         <tr><td>5</td><td>実践：ゲームを作らせて、構造を読み解く</td><td>21分</td></tr>
         <tr><td>6</td><td>まとめ</td><td>4分</td></tr>
         <tr><td>7</td><td>質疑応答</td><td>10分</td></tr>
@@ -525,31 +525,11 @@ Hello world</pre>
         <li>Claude が <code class="inline">bash hello.sh</code> を実行し、<code class="inline">Hello world</code> が表示されることを確認する</li>
         <li><strong>依頼 → 作成 → 実行 → 確認</strong> — 2-4 で学んだエージェントループの一周を最小サイズで体験できた</li>
       </ul>
-      <div class="callout tip">
-        <strong>💡 確認の質問が来たら</strong>
-        指示が曖昧なとき（CLI か Web か、ファイル名はどうするか等）は Claude が確認の質問をしてくることがある。勝手に進めないのが Default モードの正常な動き。
-      </div>
-      <div class="callout tip">
-        <strong>💡 TIPS：スピナー（作業中の表示）</strong>
-        プロンプトを送ると、Claude が作業している間は以下のような <strong>スピナー</strong> が表示される。
-<pre style="margin:8px 0 0;">✻ Pondering… <span class="comment">(12s · ↓ 1.2k tokens · esc to interrupt)</span></pre>
-        <ul style="margin:8px 0 0;padding-left:20px;">
-          <li>先頭の単語（Pondering, Brewing, Vibing…）は <strong>ランダムな遊び言葉</strong> で、処理内容とは関係ない</li>
-          <li><strong>経過時間</strong> と <strong>消費トークン数</strong> が確認できる</li>
-          <li><code class="inline">esc to interrupt</code> — <strong><code class="inline">Esc</code> でいつでも割り込んで</strong> 指示し直せる（2-4「人間の関与」の実物）</li>
-        </ul>
-      </div>
-      <div class="callout tip">
-        <strong>💡 TIPS：こんな質問が来たら？</strong>
-        セッション中、以下のような質問が表示されることがある。Claude の働きぶりについての <strong>任意回答</strong> のフィードバックで、迷ったら <strong><code class="inline">2: Fine</code> で OK</strong>（<code class="inline">0: Dismiss</code> で閉じてもよい）。
-<pre style="margin:8px 0 0;">● How is Claude doing this session? <span class="comment">(optional)</span>
-  <span class="prompt">1</span>: Bad    <span class="prompt">2</span>: Fine    <span class="prompt">3</span>: Good    <span class="prompt">0</span>: Dismiss</pre>
-      </div>
     </section>
 
     <section id="sec4">
-      <h2 class="step"><span class="step-num">4</span>Claude に情報を渡す（14分）</h2>
-      <p>Claude に情報を渡す方法は2通りある。セッションのたびに自動で渡す <strong>CLAUDE.md</strong> と、プロンプトの先頭に記号を付けてその場で渡す <strong><code class="inline">@</code>・<code class="inline">!</code></strong>。あわせて、ハーネスの動作を決める <strong>settings.json</strong> も紹介する。</p>
+      <h2 class="step"><span class="step-num">4</span>Claude に情報を渡す（16分）</h2>
+      <p>Claude に情報を渡す方法は3通りある。セッションのたびに自動で渡す <strong>CLAUDE.md</strong>、プロンプトの先頭に記号を付けてその場で渡す <strong><code class="inline">@</code>・<code class="inline">!</code></strong>、必要になったときだけ読み込まれる <strong>スキル</strong>。あわせて、ハーネスの動作を決める <strong>settings.json</strong> も紹介する。</p>
 
       <h3>4-1. CLAUDE.md（8分）</h3>
       <p>セッション開始時に <strong>自動で読み込まれる</strong>「Claude への指示書」。2-2 で見たとおり、モデルは会話をまたぐ記憶を持たず、新しいセッションはまっさらな状態から始まる。プロジェクトのルールや前提を CLAUDE.md に書いておけば、どのセッションでも同じ前提で動いてもらえる。</p>
@@ -574,19 +554,20 @@ Hello world</pre>
         <ol>
           <li>hello-world フォルダの Claude Code で <code class="inline">/init</code> を実行し、CLAUDE.md を作る</li>
           <li>できた CLAUDE.md をエディタで開いて読む（Claude に「CLAUDE.md に何が書いてあるか教えて」と聞いてもよい）</li>
-          <li>ルールを追記させる:
+          <li>Claude の喋り方を自由に決めて、ルールを追記させる（関西弁・武士・猫など、ふだんの返答とすぐ見分けがつくもの）:
             <div class="prompt-box">
               <span class="label">あなたの指示</span>
-              <p>CLAUDE.md に「シェルスクリプトの先頭には、何をするスクリプトかを説明するコメントを1行書く」というルールを追記して</p>
+              <p>CLAUDE.md に「会話の返答は関西弁で話す」というルールを追記して</p>
             </div>
+            「関西弁」の部分は、自分で決めた喋り方に置き換える
           </li>
           <li><code class="inline">/exit</code> で終了し、もう一度 <code class="inline">claude</code> を起動して新しいセッションを始める</li>
-          <li>新しいセッションで依頼する:
+          <li>新しいセッションで聞いてみる:
             <div class="prompt-box">
               <span class="label">あなたの指示</span>
-              <p>1から10まで数えて表示するシェルスクリプトを作って</p>
+              <p>このフォルダには何がある？</p>
             </div>
-            できたスクリプトの先頭に説明のコメントが入っていれば、CLAUDE.md が読み込まれている
+            決めた喋り方で返ってくれば、CLAUDE.md が読み込まれている
           </li>
         </ol>
       </div>
@@ -621,7 +602,37 @@ Hello world</pre>
         </ul>
       </div>
 
-      <h3>4-3. settings.json（3分）</h3>
+      <h3>4-3. スキル（2分）</h3>
+      <p>特定の作業の手順を <code class="inline">SKILL.md</code> に書いておき、<strong>その作業のときだけ</strong> Claude に読み込ませる仕組み。4-1 の CLAUDE.md はセッションのたびに全文が読み込まれるが、スキルはふだん名前と説明だけがコンテキストに入り、手順の本文は呼び出されたときに読み込まれる。</p>
+      <table>
+        <tr><th>配置場所</th><th>スコープ</th></tr>
+        <tr><td><code class="inline">~/.claude/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>全プロジェクト共通（個人の手順）</td></tr>
+        <tr><td><code class="inline">&lt;repo&gt;/.claude/skills/&lt;skill-name&gt;/SKILL.md</code></td><td>プロジェクト共通（<strong>チームで共有</strong>）</td></tr>
+      </table>
+      <p>例えば hello-world フォルダに <code class="inline">.claude/skills/check-script/SKILL.md</code> を置くと、フォルダ名の <code class="inline">check-script</code> がスキル名になる。</p>
+<pre>---
+description: シェルスクリプトを点検する。スクリプトを見直してほしいと頼まれたときに使う
+---
+
+1. スクリプトを bash で実行し、エラーが出ないか確かめる
+2. 何をしているかを、1行ずつ説明する
+3. 直したほうがよい点があれば、箇条書きで挙げる</pre>
+      <ul>
+        <li><code class="inline">---</code> で囲んだ部分の <code class="inline">description</code> が「いつ使うか」の説明。Claude はこれを見て、スキルを使うかどうかを決める</li>
+        <li>その下が手順の本文。スキルが呼び出されたときに読み込まれる</li>
+      </ul>
+      <h4>呼び出し方</h4>
+      <ul>
+        <li><strong>Claude が自分で使う</strong>：依頼の内容が description に合えば、Claude がスキルを読み込んで手順どおりに進める</li>
+        <li><strong>自分で呼び出す</strong>：3-2 のスラッシュコマンドと同じように <code class="inline">/check-script</code> と入力する。使えるスキルの一覧は <code class="inline">/skills</code> で確認できる</li>
+      </ul>
+      <div class="callout tip">
+        <strong>💡 CLAUDE.md とスキルの使い分け</strong>
+        いつも守ってほしいルールや前提は CLAUDE.md に、特定の作業のときだけ使う手順はスキルに書く。CLAUDE.md が手順で長くなってきたら、その手順をスキルに切り出すと、ふだんのコンテキストを節約できる。
+      </div>
+      <p>参考: <a href="https://code.claude.com/docs/ja/skills" target="_blank" rel="noopener">Claude Code ドキュメント — スキル</a></p>
+
+      <h3>4-4. settings.json（3分）</h3>
       <p>パーミッションの許可リスト・Hooks・環境変数など、<strong>ハーネスの動作設定</strong> を JSON で定義する。</p>
       <table>
         <tr><th>配置場所</th><th>スコープ</th></tr>
@@ -659,7 +670,7 @@ Hello world</pre>
       </div>
       <ul>
         <li>ファイル作成の承認を求められたら、内容を確認して許可する</li>
-        <li>コードが長いので、出力に数分かかることがある。スピナーの経過時間とトークン数を見ながら待つ</li>
+        <li>コードが長いので、出力に数分かかることがある</li>
       </ul>
       <p>できたらブラウザで開いて遊んでみる（4-2 の <code class="inline">!</code> を使う）:</p>
 <pre>!open index.html</pre>
@@ -714,7 +725,7 @@ Hello world</pre>
       </div>
       <div class="callout tip">
         <strong>💡 Mermaid のビューアが無いとき</strong>
-        エディタに Mermaid 形式のビューアが入っていない場合は、<a href="https://rakkokeyword.com/techo/tool-mermaid-editor/" target="_blank" rel="noopener">Mermaid エディター</a>（rakkokeyword.com/techo/tool-mermaid-editor）に出力を貼り付けて図を確認できる。
+        エディタに Mermaid 形式のビューアが入っていない場合は、<a href="https://mermaid.live/edit" target="_blank" rel="noopener">Mermaid Live Editor</a>（mermaid.live/edit）に出力を貼り付けて図を確認できる。
       </div>
     </section>
 
@@ -725,13 +736,9 @@ Hello world</pre>
         <tr><th>章</th><th>学んだこと</th></tr>
         <tr><td>2</td><td><strong>Claude Code = モデル + ハーネス</strong>。用語（トークン / コンテキスト / モデル / ハーネス / セッション / パーミッション）と、答えが出るまでツール実行を繰り返すエージェントループ</td></tr>
         <tr><td>3</td><td>起動・終了・再開（<code class="inline">--continue</code> <code class="inline">-r</code>）、最初に実行するスラッシュコマンド（<code class="inline">/status</code> <code class="inline">/usage</code> <code class="inline">/model</code> <code class="inline">/effort</code>）、4つの承認モード、キーボードショートカット、最初の依頼と承認ダイアログ</td></tr>
-        <tr><td>4</td><td>Claude に情報を渡す — CLAUDE.md（セッションのたびに自動で渡す）、<code class="inline">@</code>（ファイル参照）・<code class="inline">!</code>（シェル実行）、settings.json（ハーネスの動作設定）</td></tr>
+        <tr><td>4</td><td>Claude に情報を渡す — CLAUDE.md（セッションのたびに自動で渡す）、<code class="inline">@</code>（ファイル参照）・<code class="inline">!</code>（シェル実行）、スキル（必要なときだけ読み込まれる手順）、settings.json（ハーネスの動作設定）</td></tr>
         <tr><td>5</td><td>作らせたコードを読み解く型 — 構造把握 → 該当箇所の特定 → 仕組みを聞く → 図で残す</td></tr>
       </table>
-      <div class="callout ok">
-        <strong>✅ このあと試してみること</strong>
-        身近なフォルダ（自分で書いたコードや、気になる OSS をクローンしたフォルダ）で <code class="inline">claude</code> を起動し、<strong>Plan Mode</strong> にして「このフォルダの構造を教えて」と聞いてみる。Plan Mode なら読み取りだけなので、ファイルを壊す心配がない。慣れてきたら、5章のように作ってみたいものを頼んでみる。
-      </div>
     </section>
 
     <section id="sec7">
